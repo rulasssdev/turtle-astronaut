@@ -1,0 +1,343 @@
+.app {
+  width: min(100% - 2rem, 60rem);
+  margin-inline: auto;
+  padding-block: var(--space-5) var(--space-6);
+}
+
+.scene {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.scene__title {
+  font-size: var(--text-title);
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+  text-shadow: var(--pixel-text-shadow);
+}
+
+.scene__lead {
+  color: var(--color-cream-soft);
+  text-align: center;
+}
+
+/* Intro: the two of them, with the distance drawn between them. */
+.couple {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.couple--apart {
+  gap: var(--space-2);
+}
+
+.couple--apart .portrait {
+  flex: 0 1 8rem;
+}
+
+.couple__distance {
+  flex: 1 1 auto;
+  max-width: 7rem;
+  min-width: 3rem;
+  height: var(--pixel);
+  margin-bottom: var(--space-4);
+  background: repeating-linear-gradient(to right, var(--color-cream-soft) 0 8px, transparent 8px 16px);
+}
+
+.lean-spot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Pulled down by its flipper rows so they rest on the button's top edge. */
+.lean-spot__turtle {
+  --sprite-pixel-size: clamp(4px, 0.8vw + 2px, 6px);
+
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  width: min(100% - var(--pixel) * 2, 22rem);
+  padding-right: 12%;
+  margin-bottom: calc(var(--sprite-pixel-size) * var(--ledge-rows) * -1);
+  pointer-events: none;
+}
+
+/* Flowers: the bouquet floats in the middle, with sparkles twinkling around it. */
+.bouquet {
+  position: relative;
+  align-self: center;
+  margin-block: var(--space-3);
+}
+
+.sprite--bouquet {
+  --sprite-pixel-size: clamp(5px, 1vw + 3px, 8px);
+}
+
+.bouquet__sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bouquet__sparkles .sprite {
+  --sprite-pixel-size: clamp(3px, 0.4vw + 2px, 4px);
+
+  position: absolute;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  animation: twinkle var(--twinkle-duration, 2s) steps(3, end) var(--twinkle-delay, 0s) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bouquet__sparkles .sprite {
+    animation: none;
+  }
+}
+
+/* Journey: the route arcs around the sun, the current planet floats in the middle, the message below. */
+.route {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+}
+
+.route__path {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.route__path path {
+  fill: none;
+  stroke: var(--color-cream-soft);
+  stroke-width: 2px;
+  stroke-dasharray: 6 6;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.45;
+}
+
+/* Only the top half of the sun shows, rising from the bottom edge of the route. */
+.route__sun {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.route__stops {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.route__stop {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  transform: translate(-50%, -50%);
+  opacity: 0.45;
+}
+
+.route__stop--reached {
+  opacity: 1;
+}
+
+.route__stop .sprite {
+  width: 100%;
+  height: 100%;
+}
+
+/* Sits just above the planet it is on. */
+.route__marker {
+  position: absolute;
+  z-index: 1;
+  transform: translate(-50%, calc(-100% - 1rem));
+}
+
+.stage {
+  --stage-rows: 34;
+
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: calc(var(--stage-rows) * var(--sprite-pixel-size));
+  overflow: hidden;
+}
+
+.stage__turtle {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.scene--journey .message-card {
+  min-height: 9.5rem;
+}
+
+/* Arrival: Neptune, the two of them together, and the phrase. */
+.scene--arrival {
+  max-width: 34rem;
+}
+
+/* Clipping keeps the floating hearts from changing the page height, which would shift the button under a tap. */
+.arrival__visual {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  overflow: clip;
+  overflow-clip-margin: var(--space-3);
+}
+
+.couple--together {
+  position: relative;
+  gap: var(--sprite-pixel-size);
+}
+
+/* Covers the couple plus some room on each side; hearts are placed in it by percentage. */
+.hearts {
+  position: absolute;
+  inset: -10% -30%;
+  pointer-events: none;
+}
+
+.hearts .sprite {
+  position: absolute;
+  max-width: none;
+}
+
+.arrival__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.arrival__headline {
+  font-size: var(--text-headline);
+  font-weight: 600;
+  line-height: 1.15;
+  text-shadow: var(--pixel-text-shadow);
+}
+
+.arrival__highlight {
+  color: var(--color-neptune);
+}
+
+.arrival__closing,
+.arrival__signature {
+  color: var(--color-cream-soft);
+}
+
+.arrival__signature {
+  margin-bottom: var(--space-3);
+}
+
+/* Promise: the two of them with a heart in between, and his words. */
+.couple--promise {
+  gap: var(--space-2);
+}
+
+.couple__heart {
+  align-self: center;
+  margin-bottom: var(--space-4);
+}
+
+.sprite--promise-heart {
+  --sprite-pixel-size: 4px;
+
+  animation: heartbeat 1.2s steps(1, end) infinite;
+}
+
+@keyframes heartbeat {
+  0%,
+  60% {
+    transform: scale(1);
+  }
+  70%,
+  90% {
+    transform: scale(1.25);
+  }
+}
+
+.promise__text {
+  text-align: center;
+}
+
+.promise__signature {
+  margin-bottom: var(--space-3);
+  color: var(--color-cream-soft);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprite--promise-heart {
+    animation: none;
+  }
+}
+
+/* Tablet and up: more air around the scenes. */
+@media (min-width: 40rem) {
+  .app {
+    padding-block: var(--space-6);
+  }
+
+  .scene {
+    gap: var(--space-5);
+  }
+
+  .couple--apart {
+    gap: var(--space-4);
+  }
+}
+
+/* Wide screens: the arrival splits into picture and words side by side. */
+@media (min-width: 64rem) {
+  .scene--arrival {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    max-width: 60rem;
+    gap: var(--space-6);
+  }
+
+  .arrival__text {
+    text-align: left;
+  }
+
+  .arrival__text .pixel-button {
+    align-self: flex-start;
+  }
+}
+
+/* Phones held sideways: shrink sprites so the scene still fits without much scrolling. */
+@media (orientation: landscape) and (max-height: 32rem) {
+  :root {
+    --sprite-pixel-size: 4px;
+  }
+
+  .sprite--figure,
+  .sprite--arrival-planet {
+    --sprite-pixel-size: 4px;
+  }
+
+  .app {
+    padding-block: var(--space-3) var(--space-4);
+  }
+
+  .route {
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+}

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>De aquí a Neptuno</title>
+    <meta name="description" content="Una tortuguita astronauta, seis planetas y algo que te quiero decir." />
+    <meta name="theme-color" content="#12152b" />
+
+    <!-- WhatsApp needs an absolute image URL; update it if the repo or user name changes. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content="De aquí a Neptuno, a pasitos de tortuga" />
+    <meta property="og:description" content="Una tortuguita astronauta, seis planetas y algo que te quiero decir." />
+    <meta property="og:image" content="https://rulasssdev.github.io/turtle-astronaut/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Dos personajes en pixel art, una tortuga y el planeta Neptuno en un cielo de noche." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&display=swap" />
+
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/scenes.css" />
+
+    <script type="module" src="js/main.js"></script>
+    <noscript><style>[data-slot="status-message"] { display: none; }</style></noscript>
+  </head>
+
+  <body>
+    <div class="starfield" data-slot="starfield" aria-hidden="true"></div>
+
+    <p class="status-message" data-slot="status-message" role="status">La tortuga se está preparando…</p>
+
+    <main class="app" data-slot="app" hidden>
+      <!-- Elements marked data-enter appear one after another when their scene is shown. -->
+      <section class="scene scene--intro" data-scene="intro" aria-labelledby="intro-title">
+        <h1 class="scene__title" id="intro-title" data-text="intro.title" data-enter></h1>
+
+        <div class="couple couple--apart" data-enter>
+          <figure class="portrait">
+            <div class="portrait__sprite" data-slot="intro-sender"></div>
+            <figcaption class="portrait__caption" data-text="intro.senderCaption"></figcaption>
+          </figure>
+          <div class="couple__distance" aria-hidden="true"></div>
+          <figure class="portrait">
+            <div class="portrait__sprite" data-slot="intro-recipient"></div>
+            <figcaption class="portrait__caption" data-text="intro.recipientCaption"></figcaption>
+          </figure>
+        </div>
+
+        <p class="scene__lead" data-text="intro.lead" data-enter></p>
+        <!-- The turtle rests its flippers on the top edge of the start button. -->
+        <div class="lean-spot" data-enter>
+          <div class="lean-spot__turtle" data-slot="intro-turtle"></div>
+          <button class="pixel-button" type="button" data-action="start" data-text="intro.startButton"></button>
+        </div>
+      </section>
+
+      <section class="scene scene--flowers" data-scene="flowers" aria-labelledby="flowers-title" hidden>
+        <h1 class="scene__title" id="flowers-title" data-text="flowers.title" data-enter></h1>
+        <div class="bouquet" data-enter>
+          <div class="bouquet__sprite" data-slot="bouquet"></div>
+          <div class="bouquet__sparkles" data-slot="bouquet-sparkles" aria-hidden="true"></div>
+        </div>
+        <p class="scene__lead" data-text="flowers.lead" data-enter></p>
+        <button class="pixel-button" type="button" data-action="begin-journey" data-text="flowers.continueButton" data-enter></button>
+      </section>
+
+      <section class="scene scene--journey" data-scene="journey" aria-labelledby="stop-name" hidden>
+        <div class="route" data-slot="route" data-enter>
+          <svg class="route__path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path data-slot="route-path" />
+          </svg>
+          <div class="route__sun" data-slot="route-sun" aria-hidden="true"></div>
+          <ol class="route__stops" data-slot="route-stops"></ol>
+          <div class="route__marker" data-slot="route-marker"></div>
+        </div>
+
+        <div class="stage" data-enter>
+          <div class="stage__planet" data-slot="stage-planet"></div>
+          <div class="stage__turtle" data-slot="stage-turtle"></div>
+        </div>
+
+        <div class="message-card" data-slot="message-card" data-enter>
+          <h1 class="message-card__title" id="stop-name" data-slot="stop-name"></h1>
+          <p class="message-card__text" data-slot="stop-message" aria-live="polite"></p>
+        </div>
+
+        <button class="pixel-button" type="button" data-action="step" data-enter></button>
+      </section>
+
+      <section class="scene scene--arrival" data-scene="arrival" aria-labelledby="arrival-title" hidden>
+        <div class="arrival__visual" data-enter>
+          <div class="arrival__planet" data-slot="arrival-planet"></div>
+          <div class="couple couple--together">
+            <div class="portrait__sprite" data-slot="arrival-sender"></div>
+            <div class="portrait__sprite" data-slot="arrival-recipient"></div>
+            <div class="hearts" data-slot="hearts" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="arrival__text">
+          <h1 class="arrival__headline" id="arrival-title" tabindex="-1" data-slot="arrival-headline" data-enter></h1>
+          <p class="arrival__closing" data-text="arrival.closing" data-enter></p>
+          <p class="arrival__signature" data-text="arrival.signature" data-enter></p>
+          <button class="pixel-button pixel-button--secondary" type="button" data-action="show-promise" data-text="arrival.continueButton" data-enter></button>
+        </div>
+      </section>
+
+      <section class="scene scene--promise" data-scene="promise" aria-labelledby="promise-title" hidden>
+        <h1 class="scene__title" id="promise-title" tabindex="-1" data-text="promise.title" data-enter></h1>
+        <div class="couple couple--together couple--promise" data-enter>
+          <div class="portrait__sprite" data-slot="promise-sender"></div>
+          <div class="couple__heart" data-slot="promise-heart"></div>
+          <div class="portrait__sprite" data-slot="promise-recipient"></div>
+        </div>
+        <p class="promise__text" data-text="promise.text" data-enter></p>
+        <p class="promise__signature" data-text="promise.signature" data-enter></p>
+        <button class="pixel-button" type="button" data-action="go-home" data-text="promise.homeButton" data-enter></button>
+      </section>
+    </main>
+
+    <noscript>
+      <p class="status-message status-message--noscript">Esta página necesita JavaScript para que la tortuga pueda caminar.</p>
+    </noscript>
+  </body>
+</html>

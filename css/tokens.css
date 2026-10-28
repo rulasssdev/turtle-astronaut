@@ -1,0 +1,39 @@
+:root {
+  /* The story is a trip through space, so the page is a night sky by design (no light theme). */
+  --color-night: #12152b;
+  --color-night-raised: #1f2447;
+  --color-night-deep: #0b0d1c;
+  --color-cream: #f5ead6;
+  --color-cream-soft: #d4cab8;
+  --color-turtle: #79c267;
+  --color-turtle-light: #94d184;
+  --color-turtle-dark: #3d6b35;
+  /* Accent: used only once the turtle reaches Neptune. */
+  --color-neptune: #6aa5f5;
+  /* Only for the floating hearts around the two of them at the end. */
+  --color-heart-pink: #f28aa0;
+
+  --font-pixel: 'Pixelify Sans', 'Courier New', monospace;
+
+  --text-small: 1rem;
+  --text-body: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-title: clamp(1.75rem, 1.25rem + 2vw, 2.5rem);
+  --text-headline: clamp(1.9rem, 1.2rem + 3vw, 3.25rem);
+
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.25rem;
+  --space-6: 3.5rem;
+
+  /* Size of one "pixel" in the stepped corners of buttons and cards. */
+  --pixel: 4px;
+  /* Size of one sprite pixel; each sprite context can override it. */
+  --sprite-pixel-size: clamp(5px, 1.2vw + 2px, 8px);
+
+  /* Hard-edged drop shadow under headings, like text in a retro game. */
+  --pixel-text-shadow: 0 3px 0 var(--color-night-deep);
+
+  --step-duration: 1400ms;
+}

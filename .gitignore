@@ -1,0 +1,10 @@
+# Local editor and AI-assistant settings, not part of the site.
+.claude/
+.cursor/
+
+# OS clutter.
+Thumbs.db
+.DS_Store
+
+AGENTS.md
+CLAUDE.md

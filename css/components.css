@@ -1,0 +1,172 @@
+/* Sprites: every sprite is drawn with the same pixel size, set per context through --sprite-pixel-size. */
+.sprite {
+  display: block;
+  width: calc(var(--sprite-columns) * var(--sprite-pixel-size));
+  max-width: 100%;
+  height: auto;
+}
+
+.sprite--figure {
+  --sprite-pixel-size: clamp(4px, 0.9vw + 2px, 6px);
+}
+
+.sprite--turtle {
+  --sprite-pixel-size: clamp(3px, 0.6vw + 1.5px, 5px);
+}
+
+.sprite--route-turtle {
+  --sprite-pixel-size: clamp(1.5px, 0.25vw + 0.75px, 2.5px);
+}
+
+.sprite--route-sun {
+  --sprite-pixel-size: 3px;
+}
+
+.sprite--heart {
+  --sprite-pixel-size: 4px;
+}
+
+.sprite--arrival-planet {
+  --sprite-pixel-size: clamp(5px, 1.5vw + 2px, 9px);
+}
+
+/* Planets drift up and down as if floating in space. */
+.sprite--floating {
+  animation: float-in-space 3.6s ease-in-out infinite;
+}
+
+@keyframes float-in-space {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(var(--sprite-pixel-size) * -2));
+  }
+}
+
+/* One-pixel idle bounce, like a character waiting in a video game. */
+.sprite--idle {
+  animation: idle-bounce 1.4s steps(1, end) infinite;
+}
+
+.sprite--idle-offset {
+  animation-delay: -0.7s;
+}
+
+@keyframes idle-bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--sprite-pixel-size));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprite--floating,
+  .sprite--idle {
+    animation: none;
+  }
+}
+
+/*
+ * Stepped "pixel" corners: four copies of the box shifted one pixel out on each side
+ * leave the corners empty. The last shadow is the button's depth, so it reads as pressable.
+ */
+.pixel-button {
+  --button-face: var(--color-turtle);
+  --button-depth: var(--color-turtle-dark);
+  --button-depth-offset: calc(var(--pixel) * 2);
+
+  align-self: center;
+  width: min(100% - var(--pixel) * 2, 22rem);
+  min-height: 3rem;
+  margin: var(--pixel) var(--pixel) calc(var(--pixel) * 3);
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  border-radius: 0;
+  background: var(--button-face);
+  color: var(--color-night);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow:
+    0 calc(var(--pixel) * -1) 0 0 var(--button-face),
+    0 var(--pixel) 0 0 var(--button-face),
+    calc(var(--pixel) * -1) 0 0 0 var(--button-face),
+    var(--pixel) 0 0 0 var(--button-face),
+    0 var(--button-depth-offset) 0 0 var(--button-depth);
+  touch-action: manipulation;
+}
+
+@media (hover: hover) {
+  .pixel-button:hover {
+    --button-face: var(--color-turtle-light);
+  }
+}
+
+.pixel-button:active {
+  --button-depth-offset: var(--pixel);
+  transform: translateY(var(--pixel));
+}
+
+.pixel-button:focus-visible {
+  outline-offset: calc(var(--pixel) * 3);
+}
+
+.pixel-button[aria-disabled='true'] {
+  --button-face: var(--color-cream-soft);
+  --button-depth: var(--color-night-raised);
+  cursor: progress;
+}
+
+.pixel-button--secondary {
+  --button-face: var(--color-night-raised);
+  --button-depth: var(--color-night-deep);
+  color: var(--color-cream);
+}
+
+@media (hover: hover) {
+  .pixel-button--secondary:hover {
+    --button-face: #2b3160;
+  }
+}
+
+.message-card {
+  --card-face: var(--color-night-raised);
+
+  margin: var(--pixel);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  background: var(--card-face);
+  box-shadow:
+    0 calc(var(--pixel) * -1) 0 0 var(--card-face),
+    0 var(--pixel) 0 0 var(--card-face),
+    calc(var(--pixel) * -1) 0 0 0 var(--card-face),
+    var(--pixel) 0 0 0 var(--card-face);
+}
+
+.message-card__title {
+  margin-bottom: var(--space-1);
+  font-size: var(--text-title);
+  font-weight: 600;
+  line-height: 1.1;
+  text-shadow: var(--pixel-text-shadow);
+}
+
+.message-card__text {
+  color: var(--color-cream-soft);
+}
+
+.portrait {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+}
+
+.portrait__caption {
+  font-size: var(--text-small);
+  color: var(--color-cream-soft);
+  text-align: center;
+}
