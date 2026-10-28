@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { PEOPLE } from '../js/content/people.js';
 import { createEmptyGrid, paintGrid } from '../js/pixel-art/sprite-grid.js';
 import { buildCharacterGrid } from '../js/sprites/character-sprite.js';
+import { buildHeartGrid } from '../js/sprites/heart-sprite.js';
 import { buildPlanetGrid } from '../js/sprites/planet-sprite.js';
 import { buildTurtleFrames } from '../js/sprites/turtle-sprite.js';
 import { createSeededRandom } from '../js/utils/random.js';
@@ -19,6 +20,7 @@ const COLORS = {
   star: '#f5ead6',
   dimStar: '#6f6f86',
   path: '#d4cab8',
+  heart: '#f28aa0',
 };
 
 // 120x63 sprite pixels scaled by 10 gives the 1200x630 size link previews expect.
@@ -35,15 +37,19 @@ function buildPreviewGrid() {
     grid[y][x] = random() > 0.7 ? COLORS.star : COLORS.dimStar;
   }
 
-  grid = paintGrid(grid, buildPlanetGrid('neptune'), 92, 6);
-  grid = paintGrid(grid, buildCharacterGrid(PEOPLE.sender), 12, 20);
-  grid = paintGrid(grid, buildCharacterGrid(PEOPLE.recipient), 38, 20);
-  grid = paintGrid(grid, buildTurtleFrames()[0], 66, 37);
+  // WhatsApp's small preview crops a centered square (columns 29 to 91), so the couple and
+  // the turtle stay inside it; Neptune sits outside and only shows in the large preview.
+  grid = paintGrid(grid, buildPlanetGrid('neptune'), 95, 4);
 
   // Dotted path from the turtle up to Neptune.
-  for (let step = 0; step <= 5; step += 1) {
-    grid[42 - step * 2][93 + step * 2] = COLORS.path;
+  for (let step = 0; step <= 8; step += 1) {
+    grid[49 - Math.round(step * 2.6)][72 + step * 3] = COLORS.path;
   }
+
+  grid = paintGrid(grid, buildCharacterGrid(PEOPLE.sender), 32, 13);
+  grid = paintGrid(grid, buildCharacterGrid(PEOPLE.recipient), 58, 13);
+  grid = paintGrid(grid, buildHeartGrid(COLORS.heart), 52, 5);
+  grid = paintGrid(grid, buildTurtleFrames()[0], 46, 46);
 
   return grid;
 }
